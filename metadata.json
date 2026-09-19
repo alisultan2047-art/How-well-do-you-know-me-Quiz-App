@@ -1,0 +1,6 @@
+{
+  "name": "How Well Do You Know Ali?",
+  "description": "A modern, interactive personal quiz app for Ali Sultan with real-time score tracking, responsive admin dashboard, and InfinityFree shared hosting export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

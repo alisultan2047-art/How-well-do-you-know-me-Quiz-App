@@ -1,0 +1,39 @@
+# ==============================================================================
+# "How Well Do You Know Ali?" - Apache Configuration for InfinityFree Hosting
+# ==============================================================================
+
+# 1. Disable directory browsing / file listings
+Options -Indexes
+
+# 2. Set default character encoding
+AddDefaultCharset UTF-8
+
+# 3. Protect sensitive system & deployment files from direct HTTP requests
+<FilesMatch "^(\.env.*|\.git.*|database\.sql|composer\.(json|lock)|package(-lock)?\.json|tsconfig\.json|server\.ts)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# 4. Block direct browser downloads of database, log, markdown, and config examples
+<FilesMatch "\.(sql|sqlite|db|log|md|example\.php)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# 5. Basic Security Headers (if mod_headers is enabled on host)
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
